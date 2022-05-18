@@ -1,0 +1,104 @@
+#!/bin/sh -eu
+## `fetchpkg` APKBUILD fetcher.
+# Fetches APKBUILDs directly from the official Alpine Linux repository.
+
+###################
+# Defaults
+###################
+
+# URL to the `aports` Git repository
+readonly GITREPO="https://gitlab.alpinelinux.org/alpine/aports.git"
+
+# Patch to the temporary clone of the Git repository
+readonly CLONEDIR="/tmp/aports"
+
+###################
+# Function Definitions
+###################
+
+# usage()
+# Prints the command usage to stdout.
+usage() {
+  cat <<EOF
+$(version): Fetch APKBUILDs directly from the Alpine Linux repositories.
+
+Usage: $(basename "$0") [OPTIONS] <PACKAGE_REPO> <PACKAGE_NAME>
+
+    -d, --dest-dir  Destination directory for the downloaded files. Default: /opt/<PACKAGE_NAME>
+    -h, --help      Show help and quit
+    -V, --version   Show version and quit
+
+EOF
+}
+
+# version()
+# Prints the current program version to stdout.
+version() {
+  echo "$(basename "$0") v0.1.0"
+}
+
+###################
+# Main
+###################
+
+# Convert long arguments into short forms
+for arg in "$@"; do
+  case "$arg" in
+  --dest-dir) set -- "$@" "-d" ;;
+  --help) set -- "$@" "-h" ;;
+  --version) set -- "$@" "-V" ;;
+  *) set -- "$@" "$arg" ;;
+  esac
+
+  shift
+done
+
+# Process short arguments
+while getopts ":d:hV" opt; do
+  case $opt in
+  d) destdir="$OPTARG" ;;
+  h)
+    usage
+    exit 0
+    ;;
+  V)
+    version
+    exit 0
+    ;;
+  *)
+    # Invalid option
+    echo >&2 "$(basename "$0"): fatal: invalid option $opt"
+    exit 1
+    ;;
+  esac
+done
+
+# Shift arguments that were already handled by getopts
+shift $((OPTIND - 1))
+
+# $1 and $2 must be the package repository and name at this point
+# Fail if incorrect number of arguments given
+if [ $# -ne 2 ]; then
+  usage
+  exit 1
+fi
+
+pkgrepo="$1"
+pkgname="$2"
+
+# Fallback to defaults for unset arguments
+if [ -z ${destdir+x} ]; then destdir="/opt/$pkgname"; fi
+
+# Sparse checkout the `aports` repository.
+if [ ! -d "$CLONEDIR" ]; then
+  git clone -q --depth 1 --filter=blob:none --sparse "$GITREPO" "$CLONEDIR"
+fi
+
+cd "$CLONEDIR" || exit 2
+
+# Download the APKBUILD for the given package
+git sparse-checkout set "$pkgrepo/$pkgname/"
+
+# Move all files to destination directory
+mkdir -p "$destdir"
+mv "$CLONEDIR/$pkgrepo/$pkgname/"* "$destdir"
