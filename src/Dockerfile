@@ -18,8 +18,8 @@ COPY . /
 
 # Configure `buildpkg` and `fetchpkg´
 RUN chmod 0755 \
-      /usr/local/bin/buildpkg \
-      /usr/local/bin/fetchpkg
+        /usr/local/bin/buildpkg \
+        /usr/local/bin/fetchpkg
 
 # Create and configure `builder` user
 RUN addgroup builder && \
