@@ -2,13 +2,13 @@
 ## `buildpkg` package builder.
 # Iterates directories in `/opt` and runs the `build` script for each package.
 
-# Set owner for package build directories
-chown -R builder:builder /opt/*
-
 # Iterate directories in `/opt`
 find "/opt" -maxdepth 1 -mindepth 1 -type d | while read -r pkg; do
 
   echo "Building package $(basename "$pkg") ..."
+
+  # Set owner for package build directory
+  chown -R builder:builder "$pkg"
 
   if [ ! -f "$pkg/build" ]; then
     echo >&2 "$0: fatal: missing build script for package $pkg, exiting ..."
