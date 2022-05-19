@@ -1,6 +1,10 @@
 #!/bin/sh -eu
 ## `buildpkg` package builder.
-# Iterates directories in `/opt` and runs the `build` script for each package.
+# Generates a new apk key and iterates directories in `/opt` and runs the `build` script for each package.
+
+# Generate new `apk` key pair
+su -c "abuild-keygen -an" builder
+cp /home/builder/.abuild/builder-*.rsa.pub /etc/apk/keys
 
 # Iterate directories in `/opt`
 find "/opt" -maxdepth 1 -mindepth 1 -type d | while read -r pkg; do

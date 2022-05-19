@@ -23,9 +23,7 @@ RUN chmod 0755 \
 
 # Create and configure `builder` user
 RUN addgroup builder && \
-    adduser -D -G builder -G abuild builder && \
-    su -c "abuild-keygen -an" builder && \
-    cp /home/builder/.abuild/builder-*.rsa.pub /etc/apk/keys
+    adduser -D -G builder -G abuild builder
 
 ## Build stage 2: Squash generated image layers
 FROM scratch
