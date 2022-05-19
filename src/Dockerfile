@@ -1,5 +1,5 @@
 ## Alpine Linux-based Docker builder image
-# https://github.com/ahgencer/docker-builder/
+# https://github.com/ahgencer/docker-abuilder/
 
 ## Build stage 1: Prepare build environment
 FROM alpine:3.15 AS staging
