@@ -33,6 +33,9 @@ COPY --from=staging / /
 CMD [ "/bin/sh" ]
 
 ## On build actions: Run when image is used as a base image
+# Upgrade installed packages
+ONBUILD RUN apk -U upgrade
+
 # Generate new `apk` key pair
 ONBUILD RUN su -c "abuild-keygen -an" builder && \
             cp /home/builder/.abuild/builder-*.rsa.pub /etc/apk/keys
