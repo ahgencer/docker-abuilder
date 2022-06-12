@@ -31,3 +31,8 @@ COPY --from=staging / /
 
 # If the builder image is run on its own, simply drop into a shell
 CMD [ "/bin/sh" ]
+
+## On build actions: Run when image is used as a base image
+# Generate new `apk` key pair
+ONBUILD RUN su -c "abuild-keygen -an" builder && \
+            cp /home/builder/.abuild/builder-*.rsa.pub /etc/apk/keys
