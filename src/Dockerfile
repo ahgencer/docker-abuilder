@@ -38,4 +38,4 @@ ONBUILD RUN apk -U upgrade
 
 # Generate new `apk` key pair
 ONBUILD RUN su -c "abuild-keygen -an" builder && \
-            cp /home/builder/.abuild/builder-*.rsa.pub /etc/apk/keys
+            install -o root -g root /home/builder/.abuild/builder-*.rsa.pub /etc/apk/keys
