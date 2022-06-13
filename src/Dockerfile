@@ -2,7 +2,7 @@
 # https://github.com/ahgencer/docker-abuilder/
 
 ## Build stage 1: Prepare build environment
-FROM alpine:3.15 AS staging
+FROM alpine:3.16 AS staging
 
 # Upgrade installed packages
 RUN apk -U upgrade
