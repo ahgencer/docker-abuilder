@@ -1,8 +1,12 @@
 ## Alpine Linux-based Docker builder image
 # https://github.com/ahgencer/docker-abuilder/
 
+## Build arguments
+# Specify the version of the underlying Alpine Linux image
+ARG ALPINE_VERSION=latest
+
 ## Build stage 1: Prepare build environment
-FROM alpine:3.16 AS staging
+FROM alpine:$ALPINE_VERSION AS staging
 
 # Upgrade installed packages
 RUN apk -U upgrade
