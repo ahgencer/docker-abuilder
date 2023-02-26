@@ -1,9 +1,0 @@
-version: '3'
-services:
-  abuilder:
-    build:
-      context: ./src
-      dockerfile: Dockerfile
-    image: ahgencer/abuilder
-    hostname: abuilder
-    container_name: abuilder

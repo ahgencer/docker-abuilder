@@ -1,18 +1,26 @@
-# Alpine Linux builder base image
+<h1 align="center">Builder Image for Alpine Linux</h1>
 
 <p align="center">
-  <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/ahgencer/abuilder?label=Docker%20Pulls">
-  <img alt="GitHub Stars" src="https://img.shields.io/github/stars/ahgencer/docker-abuilder?label=GitHub%20Stars">
-  <img alt="Issues" src="https://img.shields.io/github/issues/ahgencer/docker-abuilder/open?label=Issues">
-  <img alt="License" src="https://img.shields.io/github/license/ahgencer/docker-abuilder?label=License">
+    <a href="https://hub.docker.com/r/ahgencer/abuilder">
+        <img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/ahgencer/abuilder?label=Docker%20Pulls">
+    </a>
+    <a href="https://github.com/ahgencer/docker-abuilder">
+        <img alt="GitHub Stars" src="https://img.shields.io/github/stars/ahgencer/docker-abuilder?label=GitHub%20Stars">
+    </a>
+    <a href="https://github.com/ahgencer/docker-abuilder/issues">
+        <img alt="Issues" src="https://img.shields.io/github/issues/ahgencer/docker-abuilder/open?label=Issues">
+    </a>
+    <br>
+    <a href="https://github.com/ahgencer/docker-abuilder#license">
+        <img alt="License" src="https://img.shields.io/github/license/ahgencer/docker-abuilder?label=License">
+    </a>
+    <a href="https://github.com/ahgencer/docker-abuilder#contributing">
+        <img alt="Community Built" src="https://img.shields.io/badge/Made%20with-%E2%9D%A4-red">
+    </a>
 </p>
 
-- GitHub: https://github.com/ahgencer/docker-abuilder
-- Docker Hub: https://hub.docker.com/r/ahgencer/abuilder
-- Wiki: https://github.com/ahgencer/docker-abuilder/wiki
-
-*ahgencer/abuilder* provides a Docker image that contains common build
-dependencies for compiling Alpine Linux packages from source.
+*ahgencer/abuilder* provides a Docker base image that contains common build dependencies for compiling Alpine Linux
+packages from source.
 
 Interested? [Here's how to get started.](#getting-started)
 
@@ -79,6 +87,4 @@ COPY --from=builder /home/builder/packages/opt/**/* /opt/
 
 ## License
 
-This program is free software published under the
-[MIT License](https://github.com/ahgencer/docker-abuilder/blob/master/LICENSE).
-Feel free to use it in your own projects!
+This program is free software published under the [MIT License](LICENSE). Feel free to use it in your own projects!
